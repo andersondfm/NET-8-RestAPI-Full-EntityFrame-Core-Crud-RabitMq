@@ -11,7 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entidades\" />
     <Folder Include="Enums\" />
     <Folder Include="Interfaces\" />
   </ItemGroup>
