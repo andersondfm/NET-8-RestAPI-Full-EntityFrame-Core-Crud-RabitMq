@@ -15,5 +15,9 @@ namespace ANDERSONDFM.Dominio.Entidades
             this.DataInclusao = DataInclusao_;
             this.UsuarioInclusao = UsuarioInclusao_;
         }
+
+        public Produtos()
+        {
+        }
     }
 }
