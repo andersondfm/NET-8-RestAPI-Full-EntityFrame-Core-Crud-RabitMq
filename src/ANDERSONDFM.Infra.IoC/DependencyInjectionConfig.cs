@@ -25,7 +25,7 @@ namespace ANDERSONDFM.Infra.IoC
             return services;
         }
 
-        public static void AddSemaDbContext(this IServiceCollection services, string connectionString)
+        public static void AddDbContext(this IServiceCollection services, string connectionString)
         {
             #region Conexão SQL
 
