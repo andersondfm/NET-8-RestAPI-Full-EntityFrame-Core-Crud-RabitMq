@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using ANDERSONDFM.Aplicacao.Interfaces;
+using ANDERSONDFM.Aplicacao.Servicos;
+using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using ANDERSONDFM.Infra.IoC.AutoMapper;
@@ -18,7 +20,7 @@ namespace ANDERSONDFM.Infra.IoC
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
-            //services.AddScoped<HeaderRequest>();
+            services.AddScoped<IProdutoAppService, ProdutoAppService>();
 
             return services;
         }
