@@ -5,18 +5,22 @@ using Microsoft.AspNetCore.Mvc;
 namespace ANDERSONDFM.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/produto")]
     public class ProdutoController : ControllerBase
     {
-        [HttpGet]
-        public async Task<IActionResult> Get([FromServices] GetProdutoRequest request, [FromServices] IProdutoAppService handler)
+        private readonly IProdutoAppService _produtoAppService;
+
+        public ProdutoController(IProdutoAppService produtoAppService)
         {
-            if (request.IsValid == false)
-                return BadRequest(request.Notifications);
+            _produtoAppService = produtoAppService;
+        }
 
-            var result = await handler.Handle(request);
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var result = await _produtoAppService.ObterTodosProdutos();
 
-            if (result == null || result.Count <= 0)
+            if (result == null)
                 return NoContent();
 
             return Ok(result);

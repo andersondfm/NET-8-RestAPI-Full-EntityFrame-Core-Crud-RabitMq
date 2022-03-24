@@ -10,7 +10,7 @@ namespace ANDERSONDFM.Infra.IoC
 {
     public static class DependencyInjectionConfig
     {
-        public static IServiceCollection InjectionIoC(this IServiceCollection services)
+        public static void InjectionIoC(this IServiceCollection services)
         {
             var mappingConfig = new MapperConfiguration(mc =>
             {
@@ -21,8 +21,6 @@ namespace ANDERSONDFM.Infra.IoC
             services.AddSingleton(mapper);
 
             services.AddScoped<IProdutoAppService, ProdutoAppService>();
-
-            return services;
         }
 
         public static void AddDbContext(this IServiceCollection services, string connectionString)
