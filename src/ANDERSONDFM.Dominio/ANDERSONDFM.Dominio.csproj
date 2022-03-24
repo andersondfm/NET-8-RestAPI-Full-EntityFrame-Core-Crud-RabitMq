@@ -10,4 +10,8 @@
     <ProjectReference Include="..\ANDERSONDFM.Compartilhado\ANDERSONDFM.Compartilhado.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Enums\" />
+  </ItemGroup>
+
 </Project>

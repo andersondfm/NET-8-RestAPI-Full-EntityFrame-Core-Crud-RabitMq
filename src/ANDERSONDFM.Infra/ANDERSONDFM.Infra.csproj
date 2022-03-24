@@ -15,9 +15,4 @@
     <ProjectReference Include="..\ANDERSONDFM.Dominio\ANDERSONDFM.Dominio.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Mapeamentos\" />
-    <Folder Include="Repositorio\" />
-  </ItemGroup>
-
 </Project>
