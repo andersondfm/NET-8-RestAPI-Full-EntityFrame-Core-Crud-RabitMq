@@ -14,7 +14,7 @@ namespace ANDERSONDFM.Aplicacao.Servicos
             _produtoRepositorio = produtoRepositorio;
         }
 
-        public async Task<RetornoPadrao> ObterTodosProdutos()
+        public Task<RetornoPadrao> ObterTodosProdutos()
         {
             var result = new RetornoPadrao();
 
@@ -24,13 +24,13 @@ namespace ANDERSONDFM.Aplicacao.Servicos
                 result.Dados = data.Select(x => new Produtos() {  Nome = x.Nome }).OrderBy(x => x.Nome);
                 result.Mensagens = new List<string> { "OK" };
                 result.StatusCode = 200;
-                return result;
+                return Task.FromResult(result);
             }
             catch (Exception)
             {
                 result.Mensagens = new List<string> {"Houve um erro ao Buscar Produtos."};
                 result.StatusCode = 400;
-                return result;
+                return Task.FromResult(result);
             }
         }
     }

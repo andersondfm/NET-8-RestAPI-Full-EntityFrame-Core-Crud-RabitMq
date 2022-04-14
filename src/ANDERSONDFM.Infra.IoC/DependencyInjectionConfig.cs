@@ -1,10 +1,12 @@
 ﻿using ANDERSONDFM.Aplicacao.Interfaces;
 using ANDERSONDFM.Aplicacao.Servicos;
+using ANDERSONDFM.Dominio.Interfaces;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using ANDERSONDFM.Infra.IoC.AutoMapper;
 using ANDERSONDFM.Infra.Contextos;
+using ANDERSONDFM.Infra.Repositorio.Negocio;
 
 namespace ANDERSONDFM.Infra.IoC
 {
@@ -21,6 +23,7 @@ namespace ANDERSONDFM.Infra.IoC
             services.AddSingleton(mapper);
 
             services.AddScoped<IProdutoAppService, ProdutoAppService>();
+            services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
         }
 
         public static void AddDbContext(this IServiceCollection services, string connectionString)

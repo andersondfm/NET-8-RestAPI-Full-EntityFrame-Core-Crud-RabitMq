@@ -1,6 +1,7 @@
 ﻿using ANDERSONDFM.Dominio.Entidades;
 using ANDERSONDFM.Dominio.Interfaces;
 using ANDERSONDFM.Infra.Contextos;
+using ANDERSONDFM.Infra.Repositorio.Base;
 
 namespace ANDERSONDFM.Infra.Repositorio.Negocio
 {
