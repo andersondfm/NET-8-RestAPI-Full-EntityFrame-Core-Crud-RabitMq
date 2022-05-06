@@ -20,8 +20,14 @@ namespace ANDERSONDFM.Aplicacao.Servicos
 
             try
             {
-                var data = _produtoRepositorio.SelecionarTodos();
-                result.Dados = data.Select(x => new Produtos() {  Nome = x.Nome }).OrderBy(x => x.Nome);
+                var data = _produtoRepositorio.SelecionarTodos().ToList();
+                result.Dados = data.Select(x => new Produtos()
+                {
+                    Id = x.Id,
+                    Nome = x.Nome,
+                    DataInclusao = x.DataInclusao,
+                    UsuarioInclusao = x.UsuarioInclusao
+                });
                 result.Mensagens = new List<string> { "OK" };
                 result.StatusCode = 200;
                 return Task.FromResult(result);
