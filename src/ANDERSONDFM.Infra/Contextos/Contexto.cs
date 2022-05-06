@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ANDERSONDFM.Dominio.Entidades;
 using ANDERSONDFM.Infra.Mapeamentos;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ANDERSONDFM.Infra.Contextos
 {
-    public class Contexto : DbContext
+    public class Contexto : IdentityDbContext
     {
         public Contexto(DbContextOptions options) : base(options)
         { }
@@ -16,7 +17,6 @@ namespace ANDERSONDFM.Infra.Contextos
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ProdutoMap).Assembly);
-            
         }
     }
 }
