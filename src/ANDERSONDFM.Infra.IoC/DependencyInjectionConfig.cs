@@ -1,5 +1,7 @@
 ﻿using ANDERSONDFM.Aplicacao.Interfaces;
+using ANDERSONDFM.Aplicacao.Interfaces.auth;
 using ANDERSONDFM.Aplicacao.Servicos;
+using ANDERSONDFM.Aplicacao.Servicos.auth;
 using ANDERSONDFM.Dominio.Interfaces;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +24,7 @@ namespace ANDERSONDFM.Infra.IoC
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
+            services.AddScoped<IAuthAppService, AuthAppService>();
             services.AddScoped<IProdutoAppService, ProdutoAppService>();
             services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
         }

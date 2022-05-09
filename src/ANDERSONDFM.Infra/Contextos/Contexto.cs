@@ -1,13 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ANDERSONDFM.Dominio.Entidades;
 using ANDERSONDFM.Infra.Mapeamentos;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ANDERSONDFM.Infra.Contextos
 {
-    public class Contexto : IdentityDbContext
+    public class Contexto : IdentityDbContext<IdentityUser>
     {
-        public Contexto(DbContextOptions options) : base(options)
+        public Contexto(DbContextOptions<Contexto> options) : base(options)
         { }
 
         public DbSet<Produtos> Produtos { get; set; }

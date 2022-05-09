@@ -29,13 +29,11 @@ namespace ANDERSONDFM.Aplicacao.Servicos
                     UsuarioInclusao = x.UsuarioInclusao
                 });
                 result.Mensagens = new List<string> { "OK" };
-                result.StatusCode = 200;
                 return Task.FromResult(result);
             }
             catch (Exception)
             {
                 result.Mensagens = new List<string> {"Houve um erro ao Buscar Produtos."};
-                result.StatusCode = 400;
                 return Task.FromResult(result);
             }
         }

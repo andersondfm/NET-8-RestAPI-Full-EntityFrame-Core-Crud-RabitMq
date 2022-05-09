@@ -7,7 +7,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+    {
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireDigit = false;
+        options.Password.RequireLowercase = false;
+    })
     .AddEntityFrameworkStores<Contexto>();
 
 builder.Services.AddControllers();
