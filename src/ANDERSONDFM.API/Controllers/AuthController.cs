@@ -17,9 +17,9 @@ namespace ANDERSONDFM.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CadastrarTask([FromBody] UsuarioAuth usuarioAuth)
+        public async Task<IActionResult> Usuarios([FromBody] UsuarioAuth usuarioAuth)
         {
-            var result = await _authAppService.cadastrarUsuario(usuarioAuth);
+            var result = await _authAppService.CadastrarUsuario(usuarioAuth);
 
             if (result == null)
                 return NoContent();

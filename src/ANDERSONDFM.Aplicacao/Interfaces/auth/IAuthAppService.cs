@@ -10,6 +10,6 @@ namespace ANDERSONDFM.Aplicacao.Interfaces.auth
 {
     public interface IAuthAppService
     {
-        Task<RetornoPadrao> cadastrarUsuario(UsuarioAuth usuarioAuth);
+        Task<RetornoPadrao> CadastrarUsuario(UsuarioAuth usuarioAuth);
     }
 }
