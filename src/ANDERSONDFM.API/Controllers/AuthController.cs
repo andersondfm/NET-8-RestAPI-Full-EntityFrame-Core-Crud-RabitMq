@@ -1,6 +1,5 @@
 ﻿using ANDERSONDFM.Aplicacao.Interfaces.auth;
 using ANDERSONDFM.Aplicacao.ViewModels;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ANDERSONDFM.API.Controllers

@@ -1,7 +1,6 @@
 using ANDERSONDFM.Infra.Contextos;
 using ANDERSONDFM.Infra.IoC;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

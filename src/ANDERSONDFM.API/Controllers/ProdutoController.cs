@@ -1,5 +1,4 @@
 ﻿using ANDERSONDFM.Aplicacao.Interfaces;
-using ANDERSONDFM.Aplicacao.Requests;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ANDERSONDFM.API.Controllers

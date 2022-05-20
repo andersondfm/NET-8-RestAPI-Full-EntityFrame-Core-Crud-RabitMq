@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using System;
 
 namespace ANDERSONDFM.Infra.IoC.AutoMapper
 {

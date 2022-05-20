@@ -8,11 +8,11 @@ namespace ANDERSONDFM.Aplicacao.Servicos.auth
 {
     public class AuthAppService : IAuthAppService
     {
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
         public AuthAppService(UserManager<IdentityUser> userManager)
         {
-            this.userManager = userManager;
+            this._userManager = userManager;
         }
 
         public Task<RetornoPadrao> CadastrarUsuario(UsuarioAuth usuarioAuth)
@@ -22,13 +22,13 @@ namespace ANDERSONDFM.Aplicacao.Servicos.auth
             try
             {
                 var user = new IdentityUser { UserName = usuarioAuth.Nome, Email = usuarioAuth.Email };
-                var data = userManager.CreateAsync(user, usuarioAuth.Password).Result;
+                var data = _userManager.CreateAsync(user, usuarioAuth.Password).Result;
                 result.Dados = data;
 
                 if (!data.Succeeded)
                     return Task.FromResult(result);
 
-                var claimResult = userManager.AddClaimAsync(user, new Claim("UsuarioPadrao", usuarioAuth.Nome)).Result;
+                var claimResult = _userManager.AddClaimAsync(user, new Claim("UsuarioPadrao", usuarioAuth.Nome)).Result;
 
                 if (!claimResult.Succeeded)
                     return Task.FromResult(result);
