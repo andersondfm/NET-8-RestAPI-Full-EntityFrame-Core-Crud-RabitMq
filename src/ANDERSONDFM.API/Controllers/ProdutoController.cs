@@ -1,9 +1,11 @@
 ﻿using ANDERSONDFM.Aplicacao.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ANDERSONDFM.API.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/produto")]
     public class ProdutoController : ControllerBase
     {
