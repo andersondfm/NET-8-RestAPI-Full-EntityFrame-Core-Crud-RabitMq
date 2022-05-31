@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
-namespace ANDERSONDFM.API.Controllers
+namespace ANDERSONDFM.API.Controllers.Security
 {
     [ApiController]
     [Route("api/auth")]
