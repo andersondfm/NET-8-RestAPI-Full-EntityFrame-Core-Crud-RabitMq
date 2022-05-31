@@ -20,7 +20,9 @@ namespace ANDERSONDFM.API.Controllers.Security
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
 
-        public AuthController(IAuthAppService authAppService, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
+        public AuthController(IAuthAppService authAppService, 
+            UserManager<IdentityUser> userManager, 
+            RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
             _authAppService = authAppService;
             _userManager = userManager;
