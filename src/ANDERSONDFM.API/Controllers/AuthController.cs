@@ -105,27 +105,6 @@ namespace ANDERSONDFM.API.Controllers
             return Ok(new Response { Status = "Success", Message = "Usuário criado com sucesso!" });
         }
 
-        [HttpPost]
-        [Route("cadastradar-user")]
-        public async Task<IActionResult> Register([FromBody] UsuarioAuth model)
-        {
-            var userExists = await _userManager.FindByNameAsync(model.Nome);
-            if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Usuário Já Existe!" });
-
-            IdentityUser user = new()
-            {
-                Email = model.Email,
-                SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.Nome
-            };
-            var result = await _userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Falha na criação do usuário! Verifique os detalhes do usuário e tente novamente." });
-
-            return Ok(new Response { Status = "Success", Message = "Usuário criado com sucesso!" });
-        }
-
         private JwtSecurityToken GetToken(List<Claim> authClaims)
         {
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));

@@ -1,11 +1,12 @@
 ﻿using ANDERSONDFM.Aplicacao.Interfaces;
+using ANDERSONDFM.Aplicacao.ViewModels.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ANDERSONDFM.API.Controllers
 {
     [ApiController]
-    [Authorize]
+    [Authorize(Roles = UserRoles.User)]
     [Route("api/produto")]
     public class ProdutoController : ControllerBase
     {
