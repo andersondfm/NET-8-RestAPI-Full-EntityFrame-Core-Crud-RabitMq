@@ -29,22 +29,10 @@ namespace ANDERSONDFM.API.Controllers
         }
 
         [HttpPost]
-        [Route("cadastrar")]
-        public async Task<IActionResult> Usuarios([FromBody] UsuarioAuth usuarioAuth)
-        {
-            var result = await _authAppService.CadastrarUsuario(usuarioAuth);
-
-            if (result == null)
-                return NoContent();
-
-            return Ok(result);
-        }
-
-        [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            var user = await _userManager.FindByNameAsync(model.Username);
+            var user = await _userManager.FindByNameAsync(model.Nome);
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
@@ -72,12 +60,24 @@ namespace ANDERSONDFM.API.Controllers
         }
 
         [HttpPost]
+        [Route("cadastrar")]
+        public async Task<IActionResult> Usuarios([FromBody] UsuarioAuth usuarioAuth)
+        {
+            var result = await _authAppService.CadastrarUsuario(usuarioAuth);
+
+            if (result == null)
+                return NoContent();
+
+            return Ok(result);
+        }
+
+        [HttpPost]
         [Route("cadastrar-admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] UsuarioAuth model)
         {
             var userExists = await _userManager.FindByNameAsync(model.Nome);
             if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Usuário Já Existe!" });
 
             IdentityUser user = new()
             {
@@ -87,7 +87,7 @@ namespace ANDERSONDFM.API.Controllers
             };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Falha na criação do usuário! Verifique os detalhes do usuário e tente novamente." });
 
             if (!await _roleManager.RoleExistsAsync(UserRoles.Admin))
                 await _roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
@@ -102,7 +102,28 @@ namespace ANDERSONDFM.API.Controllers
             {
                 await _userManager.AddToRoleAsync(user, UserRoles.User);
             }
-            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
+            return Ok(new Response { Status = "Success", Message = "Usuário criado com sucesso!" });
+        }
+
+        [HttpPost]
+        [Route("cadastradar-user")]
+        public async Task<IActionResult> Register([FromBody] UsuarioAuth model)
+        {
+            var userExists = await _userManager.FindByNameAsync(model.Nome);
+            if (userExists != null)
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Usuário Já Existe!" });
+
+            IdentityUser user = new()
+            {
+                Email = model.Email,
+                SecurityStamp = Guid.NewGuid().ToString(),
+                UserName = model.Nome
+            };
+            var result = await _userManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
+                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "Falha na criação do usuário! Verifique os detalhes do usuário e tente novamente." });
+
+            return Ok(new Response { Status = "Success", Message = "Usuário criado com sucesso!" });
         }
 
         private JwtSecurityToken GetToken(List<Claim> authClaims)

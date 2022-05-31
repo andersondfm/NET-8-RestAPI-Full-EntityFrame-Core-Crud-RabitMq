@@ -10,7 +10,7 @@ namespace ANDERSONDFM.Aplicacao.ViewModels.Auth
     public class LoginModel
     {
         [Required(ErrorMessage = "Nome Requerido.")]
-        public string? Username { get; set; }
+        public string? Nome { get; set; }
 
         [Required(ErrorMessage = "Senha Requerida.")]
         public string? Password { get; set; }
