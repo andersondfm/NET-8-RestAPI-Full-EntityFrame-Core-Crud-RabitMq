@@ -14,27 +14,49 @@ namespace ANDERSONDFM.Aplicacao.Servicos
             _produtoRepositorio = produtoRepositorio;
         }
 
-        public Task<RetornoPadrao> ObterTodosProdutos()
+        public async Task<RetornoPadrao> ObterTodosProdutos(int pageIndex, int pageSize, string? sortColumn = null, string? sortOrder = null,
+            string? filterColumn = null, string? filterQuery = null)
         {
             var result = new RetornoPadrao();
 
             try
             {
-                var data = _produtoRepositorio.SelecionarTodos().ToList();
-                result.Dados = data.Select(x => new Produtos()
+                //Método sem async e sem paginação
+                //var data = _produtoRepositorio.SelecionarTodos().ToList();
+                
+                var lista = await _produtoRepositorio.BuscarTodosProdutos(
+                    pageIndex,
+                    pageSize,
+                    sortColumn,
+                    sortOrder,
+                    filterColumn,
+                    filterQuery);
+
+
+                result.data = lista.Data.Select(x => new Produtos()
                 {
                     Id = x.Id,
                     Nome = x.Nome,
                     DataInclusao = x.DataInclusao,
                     UsuarioInclusao = x.UsuarioInclusao
                 });
+
+                result.PageIndex = lista.PageIndex;
+                result.PageSize = lista.PageSize;
+                result.TotalCount = lista.TotalCount;
+                result.TotalPages = lista.TotalPages;
+                result.HasPreviousPage = lista.HasPreviousPage;
+                result.HasNextPage = lista.HasNextPage;
+                
+
+                
                 result.Mensagens = new List<string> { "OK" };
-                return Task.FromResult(result);
+                return await Task.FromResult(result);
             }
             catch (Exception)
             {
                 result.Mensagens = new List<string> {"Houve um erro ao Buscar Produtos."};
-                return Task.FromResult(result);
+                return await Task.FromResult(result);
             }
         }
     }

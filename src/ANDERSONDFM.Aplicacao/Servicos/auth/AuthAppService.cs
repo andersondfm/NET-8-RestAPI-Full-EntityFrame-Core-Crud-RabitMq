@@ -26,7 +26,7 @@ namespace ANDERSONDFM.Aplicacao.Servicos.auth
             {
                 var user = new IdentityUser { UserName = usuarioAuth.Nome, Email = usuarioAuth.Email };
                 var data = _userManager.CreateAsync(user, usuarioAuth.Password).Result;
-                result.Dados = data;
+                result.data = data;
 
                 if (!data.Succeeded)
                     return await Task.FromResult(result);
