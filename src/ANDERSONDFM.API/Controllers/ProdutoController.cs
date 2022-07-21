@@ -35,9 +35,6 @@ namespace ANDERSONDFM.API.Controllers
                 filterColumn,
                 filterQuery);
 
-            if (result == null)
-                return NoContent();
-
             return Ok(result);
         }
 

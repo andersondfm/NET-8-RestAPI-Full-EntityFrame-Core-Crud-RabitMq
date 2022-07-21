@@ -35,7 +35,7 @@ namespace ANDERSONDFM.Aplicacao.Servicos.auth
                 var roleResult = _roleManager.RoleExistsAsync(UserRoles.User).Result;
 
                 if (!roleResult)
-                    _roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+                    await _roleManager.CreateAsync(new IdentityRole(UserRoles.User));
 
                 await _userManager.AddToRoleAsync(user, UserRoles.User);
 

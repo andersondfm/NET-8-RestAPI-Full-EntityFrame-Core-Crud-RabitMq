@@ -1,6 +1,4 @@
 ﻿
-using ANDERSONDFM.Dominio.Entidades;
-
 namespace ANDERSONDFM.Dominio.Entidades
 {
 	public class Produtos

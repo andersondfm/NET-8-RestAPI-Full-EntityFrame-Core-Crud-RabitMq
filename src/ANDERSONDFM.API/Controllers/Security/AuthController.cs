@@ -67,9 +67,6 @@ namespace ANDERSONDFM.API.Controllers.Security
         {
             var result = await _authAppService.CadastrarUsuario(usuarioAuth);
 
-            if (result == null)
-                return NoContent();
-
             return Ok(result);
         }
 
