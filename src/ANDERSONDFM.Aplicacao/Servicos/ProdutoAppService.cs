@@ -14,7 +14,7 @@ namespace ANDERSONDFM.Aplicacao.Servicos
             _produtoRepositorio = produtoRepositorio;
         }
 
-        public async Task<RetornoPadrao> ObterTodosProdutos(int pageIndex, int pageSize, string? sortColumn = null, string? sortOrder = null,
+        public async Task<RetornoPadrao> GetAllProdutcsAsync(int pageIndex, int pageSize, string? sortColumn = null, string? sortOrder = null,
             string? filterColumn = null, string? filterQuery = null)
         {
             var result = new RetornoPadrao();
@@ -58,6 +58,22 @@ namespace ANDERSONDFM.Aplicacao.Servicos
                 result.Mensagens = new List<string> {"Houve um erro ao Buscar Produtos."};
                 return await Task.FromResult(result);
             }
+        }
+
+        public async Task<RetornoPadrao> FindIdProdutcAsync(int id)
+        {
+            var result = new RetornoPadrao();
+            var lista = await _produtoRepositorio.ObterPorIdAsync(id);
+
+            result.data = new Produtos()
+            {
+                Id = lista.Id,
+                Nome = lista.Nome,
+                DataInclusao = lista.DataInclusao,
+                UsuarioInclusao = lista.UsuarioInclusao
+            };
+
+            return result;
         }
     }
 }
