@@ -28,7 +28,7 @@ namespace ANDERSONDFM.API.Controllers
             string? filterColumn = null,
             string? filterQuery = null)
         {
-            var result = await _produtoAppService.GetAllProdutcsAsync(
+            var result = await _produtoAppService.BuscarTodosProdutos(
                 pageIndex,
                 pageSize,
                 sortColumn,
@@ -40,10 +40,45 @@ namespace ANDERSONDFM.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProdutcId(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            var result = await _produtoAppService.FindIdProdutcAsync(id);
+            var result = await _produtoAppService.BuscarProdutoPorId(id);
+            if (result.data == null)
+            {
+                return NoContent();
+            }
             return Ok(result);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, Produtos produtos)
+        {
+            if (id != produtos.Id)
+            {
+                return BadRequest();
+            }
+
+            var result = await _produtoAppService.EditarProduto(produtos);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post(Produtos produto)
+        {
+            var result = await _produtoAppService.CadastrarProduto(produto);
+            return Created("null",result);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _produtoAppService.DeletarProduto(id);
+            if (result.excluido)
+            {
+                return Ok(result.Mensagens);
+            }
+            result.Mensagens = new List<string> { "Não foi possível excluir o produto. Id: " + id + " (O Id do produto não está na Base de Dados.)" };
+            return NotFound(result.Mensagens);
         }
 
 
