@@ -63,10 +63,11 @@ namespace ANDERSONDFM.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Produtos produto)
+        [IgnoreAntiforgeryToken]
+        public async Task<ActionResult<Produtos>> Post(Produtos produto)
         {
             var result = await _produtoAppService.CadastrarProduto(produto);
-            return Created("null", result);
+            return CreatedAtAction("Get", new { id = result.Id }, result );
         }
 
         [HttpDelete("{id}")]

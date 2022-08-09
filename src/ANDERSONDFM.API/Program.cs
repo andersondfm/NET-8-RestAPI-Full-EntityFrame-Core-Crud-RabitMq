@@ -2,10 +2,12 @@ using System.Text;
 using ANDERSONDFM.Infra.Contextos;
 using ANDERSONDFM.Infra.IoC;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
+
 ConfigurationManager configuration = builder.Configuration;
 // Add services to the container.
 
@@ -38,11 +40,25 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-builder.Services.AddControllers();
+// Add services to the container.
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        // options.JsonSerializerOptions.WriteIndented = true;
+        // options.JsonSerializerOptions.PropertyNamingPolicy = null;
+    });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.InjectionIoC();
+
+builder.Services.AddCors(options =>
+    options.AddPolicy(name: "AngularPolicy",
+        cfg => {
+            cfg.AllowAnyHeader();
+            cfg.AllowAnyMethod();
+            cfg.WithOrigins(builder.Configuration["AllowedCORS"]);
+        }));
 
 builder.Services.AddDbContext(builder.Configuration.GetConnectionString("DefaultConnection"));
 
@@ -57,8 +73,16 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor
+                       | ForwardedHeaders.XForwardedProto
+});
+
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseCors("AngularPolicy");
 
 app.MapControllers();
 
