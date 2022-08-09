@@ -47,7 +47,7 @@ namespace ANDERSONDFM.API.Controllers
             {
                 return NoContent();
             }
-            return Ok(result);
+            return Ok(result.data);
         }
 
         [HttpPut("{id}")]
