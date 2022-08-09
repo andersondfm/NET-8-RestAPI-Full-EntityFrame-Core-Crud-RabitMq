@@ -5,8 +5,25 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
+using Serilog.Events;
+using Serilog.Sinks.MSSqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((ctx, lc) => lc
+    .ReadFrom.Configuration(ctx.Configuration)
+    .WriteTo.MSSqlServer(connectionString:
+        ctx.Configuration.GetConnectionString("DefaultConnection"),
+        restrictedToMinimumLevel: LogEventLevel.Information,
+        sinkOptions: new MSSqlServerSinkOptions
+        {
+            TableName = "LogEvents",
+            AutoCreateSqlTable = true
+        }
+    )
+    .WriteTo.Console()
+);
 
 ConfigurationManager configuration = builder.Configuration;
 // Add services to the container.
@@ -63,6 +80,8 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext(builder.Configuration.GetConnectionString("DefaultConnection"));
 
 var app = builder.Build();
+
+app.UseSerilogRequestLogging();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

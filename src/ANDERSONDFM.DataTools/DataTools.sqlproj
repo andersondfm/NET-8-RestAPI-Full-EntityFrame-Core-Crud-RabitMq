@@ -60,5 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Produtos.sql" />
+    <Build Include="Logs.sql" />
   </ItemGroup>
 </Project>
