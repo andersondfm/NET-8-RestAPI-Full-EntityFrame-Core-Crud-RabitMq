@@ -1,6 +1,7 @@
 ﻿using ANDERSONDFM.Aplicacao.Interfaces;
 using ANDERSONDFM.Aplicacao.ViewModels.Auth;
 using ANDERSONDFM.Dominio.Entidades;
+using ANDERSONDFM.Infra.Contextos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,7 +41,7 @@ namespace ANDERSONDFM.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<ActionResult<Produtos>> Get(int id)
         {
             var result = await _produtoAppService.BuscarProdutoPorId(id);
             if (result.data == null)
