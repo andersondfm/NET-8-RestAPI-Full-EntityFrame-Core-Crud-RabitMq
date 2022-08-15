@@ -1,4 +1,3 @@
-using ANDERSONDFM.API.Controllers;
 using ANDERSONDFM.Dominio.Entidades;
 
 namespace ANDERSONDFM.Tests

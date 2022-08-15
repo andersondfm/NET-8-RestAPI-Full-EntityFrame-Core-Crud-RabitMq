@@ -1,8 +1,4 @@
-﻿
-using System.ComponentModel;
-using System.Security.AccessControl;
-
-namespace ANDERSONDFM.Compartilhado.ViewModel
+﻿namespace ANDERSONDFM.Compartilhado.ViewModel
 {
     public class RetornoPadrao
     {

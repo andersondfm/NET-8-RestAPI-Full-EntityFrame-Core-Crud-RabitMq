@@ -1,7 +1,6 @@
 ﻿using ANDERSONDFM.Aplicacao.Interfaces;
 using ANDERSONDFM.Aplicacao.ViewModels.Auth;
 using ANDERSONDFM.Dominio.Entidades;
-using ANDERSONDFM.Infra.Contextos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
