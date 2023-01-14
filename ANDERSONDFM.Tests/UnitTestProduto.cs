@@ -8,7 +8,7 @@ namespace ANDERSONDFM.Tests
         /// Test the PostProduto() method
         /// </summary>
         [Fact]
-        public async Task CriarProduto()
+        public Task CriarProduto()
         {
             // Arrange
             var produto = new Produtos()
@@ -23,9 +23,7 @@ namespace ANDERSONDFM.Tests
 
             // Assert
             Assert.NotNull(resultado);
-            
-
-
+            return Task.CompletedTask;
         }
     }
 }

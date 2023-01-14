@@ -61,7 +61,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
-        // options.JsonSerializerOptions.WriteIndented = true;
+         options.JsonSerializerOptions.WriteIndented = true;
         // options.JsonSerializerOptions.PropertyNamingPolicy = null;
     });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
