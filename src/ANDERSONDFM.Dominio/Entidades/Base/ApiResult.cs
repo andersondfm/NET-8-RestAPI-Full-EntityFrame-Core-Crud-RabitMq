@@ -1,5 +1,6 @@
 ﻿using System.Linq.Dynamic.Core;
 using System.Reflection;
+using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace ANDERSONDFM.Dominio.Entidades
@@ -92,6 +93,8 @@ namespace ANDERSONDFM.Dominio.Entidades
             source = source
                 .Skip(pageIndex * pageSize)
                 .Take(pageSize);
+            
+            var sql = source.ToParametrizedSql();
 
             var data = await source.ToListAsync();
 

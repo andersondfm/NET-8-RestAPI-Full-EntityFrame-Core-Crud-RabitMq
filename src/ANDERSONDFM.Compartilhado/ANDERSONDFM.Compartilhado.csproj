@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="EFCore.BulkExtensions.SqlServer" Version="6.6.5" />
+  </ItemGroup>
+
 </Project>
