@@ -1,4 +1,6 @@
-﻿namespace ANDERSONDFM.Compartilhado.ViewModel
+﻿using Microsoft.Extensions.Logging;
+
+namespace ANDERSONDFM.Compartilhado.ViewModel
 {
     public class RetornoPadrao
     {
