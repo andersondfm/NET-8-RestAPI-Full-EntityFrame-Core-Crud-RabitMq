@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\ANDERSONDFM.API\ANDERSONDFM.API.csproj" />
+    <ProjectReference Include="..\ANDERSONDFM.API\ANDERSONDFM.API.csproj" />
   </ItemGroup>
 
 </Project>
