@@ -2,16 +2,21 @@
 using ANDERSONDFM.Compartilhado.ViewModel;
 using ANDERSONDFM.Dominio.Entidades;
 using ANDERSONDFM.Dominio.Interfaces;
+using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore.SqlServer.ValueGeneration.Internal;
 
 namespace ANDERSONDFM.Aplicacao.Servicos
 {
     public class ProdutoAppService : IProdutoAppService
     {
         private readonly IProdutoRepositorio _produtoRepositorio;
+        private ILogger<ProdutoAppService> Logger { get; }
 
-        public ProdutoAppService(IProdutoRepositorio produtoRepositorio)
+
+        public ProdutoAppService(IProdutoRepositorio produtoRepositorio, ILogger<ProdutoAppService> logger)
         {
             _produtoRepositorio = produtoRepositorio;
+            Logger = logger;
         }
 
         public async Task<RetornoPadrao> BuscarTodosProdutos(int pageIndex, int pageSize, string? sortColumn = null, string? sortOrder = null,
@@ -21,9 +26,6 @@ namespace ANDERSONDFM.Aplicacao.Servicos
 
             try
             {
-                //Método sem async e sem paginação
-                //var data = _produtoRepositorio.SelecionarTodos().ToList();
-
                 var lista = await _produtoRepositorio.BuscarTodosProdutos(
                     pageIndex,
                     pageSize,
@@ -31,7 +33,6 @@ namespace ANDERSONDFM.Aplicacao.Servicos
                     sortOrder,
                     filterColumn,
                     filterQuery);
-
 
                 result.data = lista.Data.Select(x => new Produtos()
                 {
@@ -47,14 +48,13 @@ namespace ANDERSONDFM.Aplicacao.Servicos
                 result.TotalPages = lista.TotalPages;
                 result.HasPreviousPage = lista.HasPreviousPage;
                 result.HasNextPage = lista.HasNextPage;
-
-
-
                 result.Mensagens = new List<string> { "OK" };
+
                 return await Task.FromResult(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Logger.LogError(ex.Message);
                 result.Mensagens = new List<string> { "Houve um erro ao Buscar Produtos." };
                 return await Task.FromResult(result);
             }
