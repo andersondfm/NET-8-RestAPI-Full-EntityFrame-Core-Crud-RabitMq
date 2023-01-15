@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e6e5bee5-210c-4962-b1d7-13144f636a0d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/ANDERSONDFM.Tests/UnitTestProduto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ANDERSONDFM.Tests/UnitTestProduto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ANDERSONDFM.API/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/ANDERSONDFM.API/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ANDERSONDFM.API/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/ANDERSONDFM.API/appsettings.Development.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2KKqmbycFOw3vu59AEVZfY3AwDl" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e6e5bee5-210c-4962-b1d7-13144f636a0d" name="Changes" comment="" />
+      <created>1673733785922</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1673733785922</updated>
+      <workItem from="1673733790875" duration="21000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>
