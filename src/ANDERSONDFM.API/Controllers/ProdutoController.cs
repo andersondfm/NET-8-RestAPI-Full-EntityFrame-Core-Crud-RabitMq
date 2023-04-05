@@ -8,7 +8,6 @@ namespace ANDERSONDFM.API.Controllers
 {
     [ApiController]
     [Authorize(Roles = UserRoles.User)]
-    [AllowAnonymous]
     [Route("api/produto")]
     public class ProdutoController : ControllerBase
     {
