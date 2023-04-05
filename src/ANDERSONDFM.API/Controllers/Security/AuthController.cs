@@ -55,7 +55,8 @@ namespace ANDERSONDFM.API.Controllers.Security
                 return Ok(new
                 {
                     token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo
+                    expiration = token.ValidTo,
+                    success = true
                 });
             }
             return Unauthorized();
