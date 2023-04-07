@@ -70,12 +70,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.InjectionIoC();
 
 builder.Services.AddCors(options =>
-    options.AddPolicy(name: "AngularPolicy",
-        cfg => {
-            cfg.AllowAnyHeader();
-            cfg.AllowAnyMethod();
-            cfg.WithOrigins(builder.Configuration["AllowedCORS"]);
-        }));
+{
+    options.AddPolicy("AngularPolicy", builder =>
+    {
+        builder.AllowAnyHeader()
+            .AllowAnyMethod()
+            .WithOrigins("http://localhost:4200"); // Substitua pelo domínio que você deseja permitir
+    });
+});
 
 builder.Services.AddDbContext(builder.Configuration.GetConnectionString("DefaultConnection"));
 

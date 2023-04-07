@@ -6,6 +6,7 @@ using ANDERSONDFM.Infra.Repositorio.Negocio;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace ANDERSONDFM.Tests
 {
     public class UnitTestProduto
@@ -33,7 +34,7 @@ namespace ANDERSONDFM.Tests
             context.SaveChanges();
 
             var repository = new ProdutoRepositorio(context);
-            var produtoservice = new ProdutoAppService(repository, null);
+            var produtoservice = new ProdutoAppService(repository, null, null);
             var controller = new ProdutoController(produtoservice);
 
             // Act
@@ -65,7 +66,7 @@ namespace ANDERSONDFM.Tests
             context.Database.EnsureCreated(); // Cria um novo banco de dados vazio
 
             var repository = new ProdutoRepositorio(context);
-            var produtoservice = new ProdutoAppService(repository, null);
+            var produtoservice = new ProdutoAppService(repository, null, null);
             var controller = new ProdutoController(produtoservice);
 
             // Act

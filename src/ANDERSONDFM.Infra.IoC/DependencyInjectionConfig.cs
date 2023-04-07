@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using ANDERSONDFM.Infra.IoC.AutoMapper;
 using ANDERSONDFM.Infra.Contextos;
 using ANDERSONDFM.Infra.Repositorio.Negocio;
+using ANDERSONDFM.Integracao;
 
 namespace ANDERSONDFM.Infra.IoC
 {
@@ -27,6 +28,7 @@ namespace ANDERSONDFM.Infra.IoC
             services.AddScoped<IAuthAppService, AuthAppService>();
             services.AddScoped<IProdutoAppService, ProdutoAppService>();
             services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
+            services.AddScoped<IRabitMQProducer, RabitMQProducer>();
         }
 
         public static void AddDbContext(this IServiceCollection services, string connectionString)
