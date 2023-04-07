@@ -2,8 +2,8 @@
 using ANDERSONDFM.Compartilhado.ViewModel;
 using ANDERSONDFM.Dominio.Entidades;
 using ANDERSONDFM.Dominio.Interfaces;
+using ANDERSONDFM.Integracao;
 using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore.SqlServer.ValueGeneration.Internal;
 
 namespace ANDERSONDFM.Aplicacao.Servicos
 {
@@ -11,12 +11,14 @@ namespace ANDERSONDFM.Aplicacao.Servicos
     {
         private readonly IProdutoRepositorio _produtoRepositorio;
         private ILogger<ProdutoAppService> Logger { get; }
+        private readonly IRabitMQProducer _rabitMQProducer;
 
 
-        public ProdutoAppService(IProdutoRepositorio produtoRepositorio, ILogger<ProdutoAppService> logger)
+        public ProdutoAppService(IProdutoRepositorio produtoRepositorio, ILogger<ProdutoAppService> logger, IRabitMQProducer rabitMqProducer)
         {
             _produtoRepositorio = produtoRepositorio;
             Logger = logger;
+            _rabitMQProducer = rabitMqProducer;
         }
 
         public async Task<RetornoPadrao> BuscarTodosProdutos(int pageIndex, int pageSize, string? sortColumn = null, string? sortOrder = null,
@@ -119,6 +121,8 @@ namespace ANDERSONDFM.Aplicacao.Servicos
                 result.Id = produto.Id;
             }
             result.Mensagens = new List<string> { "Inserido com sucesso." };
+
+            _rabitMQProducer.SendProductMessage(result.data);
 
             return result;
 
