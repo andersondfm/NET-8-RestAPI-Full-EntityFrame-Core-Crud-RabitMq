@@ -7,6 +7,7 @@ Este projeto utiliza as seguintes tecnologias:
  .NET 6
  Entity Framework Core 6
  ASP.NET Core Web API
+ RabbitMQ
  Microsoft SQL Server (ou outro banco de dados compatível com o Entity Framework Core)
 
 ### Configuração
@@ -18,6 +19,10 @@ Configure a conexão do banco de dados no arquivo appsettings.json.
 Abra o console do NuGet e execute o comando dotnet restore para instalar as dependências do projeto.
 Execute o comando dotnet ef database update para criar as tabelas do banco de dados.
 Execute o comando dotnet run para iniciar o servidor de desenvolvimento.
+Para instalar O rabbitMQ usa o Docker e segue abaixo o comando para instalação.
+docker pull rabbitmq:3-management
+docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+
 
 ### Rotas
 O projeto tem as seguintes rotas implementadas:
