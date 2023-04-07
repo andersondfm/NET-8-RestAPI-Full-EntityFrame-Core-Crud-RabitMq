@@ -22,6 +22,7 @@ Execute o comando dotnet run para iniciar o servidor de desenvolvimento.
 Para instalar O rabbitMQ usa o Docker e segue abaixo o comando para instalação.
 
 docker pull rabbitmq:3-management
+
 docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
 
 
