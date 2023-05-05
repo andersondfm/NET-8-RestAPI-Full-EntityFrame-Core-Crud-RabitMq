@@ -34,31 +34,38 @@ namespace ANDERSONDFM.API.Controllers.Security
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            var user = await _userManager.FindByNameAsync(model.Nome);
-            if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+            if (model.Nome != null)
             {
-                var userRoles = await _userManager.GetRolesAsync(user);
-
-                var authClaims = new List<Claim>
+                var user = await _userManager.FindByNameAsync(model.Nome);
+                if (model.Password != null && user != null && await _userManager.CheckPasswordAsync(user, model.Password))
                 {
-                    new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                };
+                    var userRoles = await _userManager.GetRolesAsync(user);
 
-                foreach (var userRole in userRoles)
-                {
-                    authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+                    if (user.UserName != null)
+                    {
+                        var authClaims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.Name, user.UserName),
+                            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                        };
+
+                        foreach (var userRole in userRoles)
+                        {
+                            authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+                        }
+
+                        var token = GetToken(authClaims);
+
+                        return Ok(new
+                        {
+                            token = new JwtSecurityTokenHandler().WriteToken(token),
+                            expiration = token.ValidTo,
+                            success = true
+                        });
+                    }
                 }
-
-                var token = GetToken(authClaims);
-
-                return Ok(new
-                {
-                    token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo,
-                    success = true
-                });
             }
+
             return Unauthorized();
         }
 
@@ -107,7 +114,7 @@ namespace ANDERSONDFM.API.Controllers.Security
 
         private JwtSecurityToken GetToken(List<Claim> authClaims)
         {
-            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"] ?? string.Empty));
 
             var token = new JwtSecurityToken(
                 issuer: _configuration["JWT:ValidIssuer"],
