@@ -19,7 +19,7 @@ namespace ANDERSONDFM.Infra.Repositorio.Base
             Contexto.Set<T>().Add(entity);
         }
 
-        public virtual void Alterar(T entity, bool checkConcurrency = false, byte[] rowVersion = null)
+        public virtual void Alterar(T entity, bool checkConcurrency = false, byte[]? rowVersion = null)
         {
             Contexto.Entry(entity).State = EntityState.Modified;
 
@@ -32,7 +32,7 @@ namespace ANDERSONDFM.Infra.Repositorio.Base
             Contexto.Set<T>().Remove(entity);
         }
 
-        public virtual void CheckConcurrency(T entity, byte[] rowVersion)
+        public virtual void CheckConcurrency(T entity, byte[]? rowVersion)
         {
             Contexto.Entry(entity).OriginalValues["RowVersion"] = rowVersion;
         }
@@ -42,7 +42,7 @@ namespace ANDERSONDFM.Infra.Repositorio.Base
             Contexto.Entry(entity).State = EntityState.Detached;
         }
 
-        public virtual T ObterPorId(int id)
+        public virtual T? ObterPorId(int id)
         {
             return Contexto.Set<T>().Find(id);
         }
@@ -95,7 +95,7 @@ namespace ANDERSONDFM.Infra.Repositorio.Base
             return await CommitAsync().ConfigureAwait(false) > 0;
         }
 
-        public virtual async Task<T> ObterPorIdAsync(int id)
+        public virtual async Task<T?> ObterPorIdAsync(int id)
         {
             return await Contexto.Set<T>().FindAsync(id).ConfigureAwait(false);
         }

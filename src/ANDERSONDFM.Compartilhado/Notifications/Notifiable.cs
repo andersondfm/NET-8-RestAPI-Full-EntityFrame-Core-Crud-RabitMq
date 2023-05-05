@@ -2,16 +2,16 @@
 {
     public abstract class Notifiable<T> where T : Notification
     {
-        private readonly List<T> _notifications;
+        private readonly List<T?> _notifications;
 
-        protected Notifiable() => _notifications = new List<T>();
+        protected Notifiable() => _notifications = new List<T?>();
 
-        private T GetNotificationInstance(string key, string message)
+        private T? GetNotificationInstance(string key, string message)
         {
-            return (T)Activator.CreateInstance(typeof(T), new object[] { key, message });
+            return (T)Activator.CreateInstance(typeof(T), new object[] { key, message })!;
         }
 
-        public IReadOnlyCollection<T> Notifications => _notifications;
+        public IReadOnlyCollection<T?> Notifications => _notifications;
 
         public void AddNotification(string key, string message)
         {
@@ -19,18 +19,21 @@
             _notifications.Add(notification);
         }
 
-        public void AddNotification(T notification)
+        public void AddNotification(T? notification)
         {
             _notifications.Add(notification);
         }
 
         public void AddNotification(Type property, string message)
         {
-            var notification = GetNotificationInstance(property?.Name, message);
-            _notifications.Add(notification);
+            if (property?.Name != null)
+            {
+                var notification = GetNotificationInstance(property.Name, message);
+                _notifications.Add(notification);
+            }
         }
 
-        public void AddNotifications(IReadOnlyCollection<T> notifications)
+        public void AddNotifications(IReadOnlyCollection<T?> notifications)
         {
             _notifications.AddRange(notifications);
         }

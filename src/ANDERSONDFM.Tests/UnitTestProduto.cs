@@ -43,10 +43,13 @@ namespace ANDERSONDFM.Tests
             // Assert
             Assert.IsType<OkObjectResult>(result.Result);
             var okResult = (OkObjectResult)result.Result;
-            var produtoRetornado = (Produtos)okResult.Value;
-            Assert.Equal(produto.Nome, produtoRetornado.Nome);
-            Assert.Equal(produto.DataInclusao, produtoRetornado.DataInclusao);
-            Assert.Equal(produto.UsuarioInclusao, produtoRetornado.UsuarioInclusao);
+            var produtoRetornado = (Produtos)okResult.Value!;
+            Assert.Equal(produto.Nome, produtoRetornado?.Nome);
+            if (produtoRetornado != null)
+            {
+                Assert.Equal(produto.DataInclusao, produtoRetornado.DataInclusao);
+                Assert.Equal(produto.UsuarioInclusao, produtoRetornado.UsuarioInclusao);
+            }
         }
 
         /// <summary>

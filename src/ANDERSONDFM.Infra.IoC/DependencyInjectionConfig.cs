@@ -31,7 +31,7 @@ namespace ANDERSONDFM.Infra.IoC
             services.AddScoped<IRabitMQProducer, RabitMQProducer>();
         }
 
-        public static void AddDbContext(this IServiceCollection services, string connectionString)
+        public static void AddDbContext(this IServiceCollection services, string? connectionString)
         {
             #region Conexão SQL
 

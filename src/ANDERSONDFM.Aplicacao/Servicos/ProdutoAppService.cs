@@ -10,11 +10,11 @@ namespace ANDERSONDFM.Aplicacao.Servicos
     public class ProdutoAppService : IProdutoAppService
     {
         private readonly IProdutoRepositorio _produtoRepositorio;
-        private ILogger<ProdutoAppService> Logger { get; }
-        private readonly IRabitMQProducer _rabitMQProducer;
+        private ILogger<ProdutoAppService>? Logger { get; }
+        private readonly IRabitMQProducer? _rabitMQProducer;
 
 
-        public ProdutoAppService(IProdutoRepositorio produtoRepositorio, ILogger<ProdutoAppService> logger, IRabitMQProducer rabitMqProducer)
+        public ProdutoAppService(IProdutoRepositorio produtoRepositorio, ILogger<ProdutoAppService>? logger, IRabitMQProducer? rabitMqProducer)
         {
             _produtoRepositorio = produtoRepositorio;
             Logger = logger;
@@ -56,7 +56,7 @@ namespace ANDERSONDFM.Aplicacao.Servicos
             }
             catch (Exception ex)
             {
-                Logger.LogError(ex.Message);
+                if (Logger != null) Logger.LogError(ex.Message);
                 result.Mensagens = new List<string> { "Houve um erro ao Buscar Produtos." };
                 return await Task.FromResult(result);
             }
@@ -86,16 +86,13 @@ namespace ANDERSONDFM.Aplicacao.Servicos
         {
             var result = new RetornoPadrao();
             var item = await _produtoRepositorio.AlterarAsync(produto);
-            if (item != null)
+            result.data = new Produtos()
             {
-                result.data = new Produtos()
-                {
-                    Id = produto.Id,
-                    Nome = produto.Nome,
-                    DataInclusao = produto.DataInclusao,
-                    UsuarioInclusao = produto.UsuarioInclusao
-                };
-            }
+                Id = produto.Id,
+                Nome = produto.Nome,
+                DataInclusao = produto.DataInclusao,
+                UsuarioInclusao = produto.UsuarioInclusao
+            };
             result.Mensagens = new List<string> { "Alterado com sucesso." };
 
             return result;
@@ -122,7 +119,7 @@ namespace ANDERSONDFM.Aplicacao.Servicos
             }
             result.Mensagens = new List<string> { "Inserido com sucesso." };
 
-            _rabitMQProducer.SendProductMessage(result.data);
+            _rabitMQProducer?.SendProductMessage(result.data);
 
             return result;
 
