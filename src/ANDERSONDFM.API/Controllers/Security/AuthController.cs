@@ -69,7 +69,7 @@ namespace ANDERSONDFM.API.Controllers.Security
             return Unauthorized(new
             {
                 Success = false,
-                Message = "Usuário ou Senha Errado."
+                Message = "Usuário ou Senha Incorretos."
             });
         }
 
