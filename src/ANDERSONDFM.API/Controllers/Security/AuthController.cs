@@ -66,7 +66,11 @@ namespace ANDERSONDFM.API.Controllers.Security
                 }
             }
 
-            return Unauthorized();
+            return Unauthorized(new
+            {
+                Success = false,
+                Message = "Usuário ou Senha Errado."
+            });
         }
 
         [HttpPost]
