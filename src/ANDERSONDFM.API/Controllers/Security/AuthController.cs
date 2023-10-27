@@ -74,10 +74,28 @@ namespace ANDERSONDFM.API.Controllers.Security
         }
 
         [HttpPost]
-        [Route("cadastrar")]
+        [Route("cadastrar-usuarios-comum")]
         public async Task<IActionResult> Usuarios([FromBody] UsuarioAuth usuarioAuth)
         {
             var result = await _authAppService.CadastrarUsuario(usuarioAuth);
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("cadastrar-gestor-estabelecimento")]
+        public async Task<IActionResult> GestorEstabelecimento([FromBody] UsuarioAuth usuarioAuth)
+        {
+            var result = await _authAppService.CadastrarGestorEstabelecimento(usuarioAuth);
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("cadastrar-usuarios-estabelecimento")]
+        public async Task<IActionResult> UsuariosEstabelecimento([FromBody] UsuarioAuth usuarioAuth)
+        {
+            var result = await _authAppService.CadastrarUsuariosEstabelecimento(usuarioAuth);
 
             return Ok(result);
         }

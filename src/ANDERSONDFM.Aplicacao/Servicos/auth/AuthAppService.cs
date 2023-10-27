@@ -42,16 +42,82 @@ namespace ANDERSONDFM.Aplicacao.Servicos.auth
                 if (!claimResult.Succeeded)
                     return await Task.FromResult(result);
 
-                result.Mensagens = new List<string> { "OK" };
+                result.Mensagens = new List<string> { "Cadastro feito com sucesso." };
                 return await Task.FromResult(result);
             }
             catch (Exception e)
             {
-                result.Mensagens = new List<string> { "Houve um erro ao Cadastrar o Usuario" + e };
+                result.Mensagens = new List<string> { "Houve um erro ao Cadastrar o Usuario." + e };
                 return await Task.FromResult(result);
             }
+        }
 
+        public async Task<RetornoPadrao> CadastrarGestorEstabelecimento(UsuarioAuth usuarioAuth)
+        {
+            var result = new RetornoPadrao();
 
+            try
+            {
+                var user = new IdentityUser { UserName = usuarioAuth.Nome, Email = usuarioAuth.Email };
+                var data = _userManager.CreateAsync(user, usuarioAuth.Password).Result;
+                result.data = data;
+
+                if (!data.Succeeded)
+                    return await Task.FromResult(result);
+
+                var claimResult = _userManager.AddClaimAsync(user, new Claim("GestorEstabelecimento", usuarioAuth.Nome)).Result;
+                var roleResult = _roleManager.RoleExistsAsync(UserRoles.GestorEstabelecimento).Result;
+
+                if (!roleResult)
+                    await _roleManager.CreateAsync(new IdentityRole(UserRoles.GestorEstabelecimento));
+
+                await _userManager.AddToRoleAsync(user, UserRoles.GestorEstabelecimento);
+
+                if (!claimResult.Succeeded)
+                    return await Task.FromResult(result);
+
+                result.Mensagens = new List<string> { "Cadastro Gestor Estabelecimento feito com sucesso." };
+                return await Task.FromResult(result);
+            }
+            catch (Exception e)
+            {
+                result.Mensagens = new List<string> { "Houve um erro ao Cadastrar o Gestor do Estabelecimento." + e };
+                return await Task.FromResult(result);
+            }
+        }
+
+        public async Task<RetornoPadrao> CadastrarUsuariosEstabelecimento(UsuarioAuth usuarioAuth)
+        {
+            var result = new RetornoPadrao();
+
+            try
+            {
+                var user = new IdentityUser { UserName = usuarioAuth.Nome, Email = usuarioAuth.Email };
+                var data = _userManager.CreateAsync(user, usuarioAuth.Password).Result;
+                result.data = data;
+
+                if (!data.Succeeded)
+                    return await Task.FromResult(result);
+
+                var claimResult = _userManager.AddClaimAsync(user, new Claim("UsuariosEstabelecimento", usuarioAuth.Nome)).Result;
+                var roleResult = _roleManager.RoleExistsAsync(UserRoles.UsuariosEstabelecimento).Result;
+
+                if (!roleResult)
+                    await _roleManager.CreateAsync(new IdentityRole(UserRoles.UsuariosEstabelecimento));
+
+                await _userManager.AddToRoleAsync(user, UserRoles.UsuariosEstabelecimento);
+
+                if (!claimResult.Succeeded)
+                    return await Task.FromResult(result);
+
+                result.Mensagens = new List<string> { "Cadastro Usuários do Estabelecimento feito com sucesso." };
+                return await Task.FromResult(result);
+            }
+            catch (Exception e)
+            {
+                result.Mensagens = new List<string> { "Houve um erro ao Cadastrar o Usuários do Estabelecimento." + e };
+                return await Task.FromResult(result);
+            }
         }
     }
 }
