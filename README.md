@@ -1,11 +1,11 @@
-### NET-7-RestAPI-Full-EntityFrame-Core-Crud
+### NET-8-RestAPI-Full-EntityFrame-Core-Crud
 Este é um projeto de API RESTful em .NET 6 usando o Entity Framework Core para implementar operações CRUD (Criar, Ler, Atualizar, Excluir) em um banco de dados. O projeto também inclui a integração com RabbitMQ e um aplicativo de console que consome a fila de produtos.
 
 ### Tecnologias
 Este projeto utiliza as seguintes tecnologias:
 
- .NET 7
- Entity Framework Core 7
+ .NET 8
+ Entity Framework Core 8
  ASP.NET Core Web API
  RabbitMQ
  Microsoft SQL Server (ou outro banco de dados compatível com o Entity Framework Core)
